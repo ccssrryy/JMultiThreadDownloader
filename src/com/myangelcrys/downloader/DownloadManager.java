@@ -24,12 +24,18 @@ public interface DownloadManager {
     void pauseAll();
     void stopAll();
     void startAll();
-    int restoreTask(InputStream inputStream, DefaultDownloadTaskFactory downloadTaskFactory,boolean reset);
+
+    int restoreTask(InputStream inputStream, DownloadTaskFactory downloadTaskFactory, boolean reset);
     boolean isSupportMultiThread();
 
     long getFinishedSize();
 
     void postFinish(DownloadTask downloadTasks, long[] finish);
+
+    void setFilename(String filename);
+
+    String getFilename();
+
     void shutdownWhenFinish();
     void splitTaskAuto(DownloadTaskFactory factory, TaskEventListener taskEventListener);
     void wakeAll();

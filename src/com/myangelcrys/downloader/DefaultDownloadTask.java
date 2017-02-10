@@ -2,32 +2,22 @@ package com.myangelcrys.downloader;
 
 import com.sun.istack.internal.NotNull;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Created by cs on 16-10-2.
  */
 public class DefaultDownloadTask extends AbstractDownloadTask{
-    private FileChannel channel = null;
-    RandomAccessFile randomAccessFile;
     int redirectTimes=5;
 
     public DefaultDownloadTask(TaskInfo taskInfo, DownloadManager dm, File f) {
-        super(taskInfo,dm);
-        try {
-            randomAccessFile=new RandomAccessFile(f,"rw");
-            randomAccessFile.seek(taskInfo.getStartByte()+taskInfo.getDownloadedBytes());
-            channel = randomAccessFile.getChannel();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        super(taskInfo, dm, new FileDataProccessor(f, taskInfo.getStartByte() + taskInfo.getDownloadedBytes()));
     }
 
     @Override
@@ -79,14 +69,5 @@ public class DefaultDownloadTask extends AbstractDownloadTask{
             taskEventListener.onConnected(s);
         }
         return s.getInputStream();
-    }
-
-    @Override
-    void processData(ByteBuffer byteBuffer) {
-        try {
-            channel.write(byteBuffer);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

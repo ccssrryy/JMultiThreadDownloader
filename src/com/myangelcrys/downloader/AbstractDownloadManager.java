@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -15,6 +18,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
  */
 public abstract class AbstractDownloadManager implements DownloadManager{
     ScheduledThreadPoolExecutor threadPool;
+    String filename = null;
     private ConcurrentHashMap<DownloadTask,Future<?>[]>taskHashMap=new ConcurrentHashMap<>();
     ConcurrentHashMap<DownloadTask,Future<?>> removedTasks=new ConcurrentHashMap<>();
     ArrayList<DownloadTask>retryList=new ArrayList<>();
@@ -53,6 +57,15 @@ public abstract class AbstractDownloadManager implements DownloadManager{
     @Override
     public void removeDownloadTask(DownloadTask downloadTask) {
         Future<?>[] f=taskHashMap.remove(downloadTask);
+        if (f == null) return;
+        long[] t = new long[]{downloadTask.getTaskInfo().getStartByte(), downloadTask.getTaskInfo().getStopByte()};
+        for (long[] task : tasks) {
+            if (Arrays.equals(t, task)) {
+                t = task;
+                break;
+            }
+        }
+        tasks.remove(t);
         if (f[0]!=null){
             removedTasks.put(downloadTask,f[0]);
             f[0].cancel(true);
@@ -94,6 +107,17 @@ public abstract class AbstractDownloadManager implements DownloadManager{
             process();
         }
     }
+
+    @Override
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
+    @Override
+    public String getFilename() {
+        return filename;
+    }
+
     abstract void process();
 
     @Override
@@ -160,9 +184,10 @@ public abstract class AbstractDownloadManager implements DownloadManager{
     }
 
     @Override
-    public int restoreTask(InputStream inputStream, DefaultDownloadTaskFactory downloadTaskFactory,boolean reset) {
+    public int restoreTask(InputStream inputStream, DownloadTaskFactory downloadTaskFactory, boolean reset) {
         TaskInfoList taskInfoList= (TaskInfoList) XMLUtils.getObject(TaskInfoList.class,inputStream);
         if (taskInfoList!=null){
+            setFilename(taskInfoList.getFilename());
             int r=0;
             for (TaskInfo taskInfo:taskInfoList.getTaskInfos()){
                 if (taskInfo.getStopByte()>0&&taskInfo.getStopByte()-taskInfo.getStartByte()<=0)continue;
@@ -174,7 +199,7 @@ public abstract class AbstractDownloadManager implements DownloadManager{
                     taskInfo.setUri(new URI(taskInfo.getUri().toString()));
                     if (reset){
                         taskInfo.setUri(new URI(taskInfoList.getUrl()));
-                        taskInfo.getHeaders().remove("Cookie");
+                        taskInfo.getHeaders().clear();
                     }
                 } catch (URISyntaxException e) {
                     e.printStackTrace();

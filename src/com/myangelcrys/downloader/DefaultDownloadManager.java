@@ -3,8 +3,14 @@ package com.myangelcrys.downloader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.*;
-import java.util.*;
+import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by cs on 16-10-4.
@@ -13,7 +19,6 @@ import java.util.*;
 public class DefaultDownloadManager extends AbstractDownloadManager{
     private int threadNums;
     boolean isServerInit;
-    String filename=null;
     private Map<String, List<String>> responseHeaders =new HashMap<>();
     TaskInfo taskInfo=null;
     private int redirectTimes=5;
@@ -97,10 +102,7 @@ public class DefaultDownloadManager extends AbstractDownloadManager{
         return responseHeaders;
     }
 
-    public void setFilename(String filename) {
-        this.filename = filename;
-    }
-
+    @Override
     public String getFilename(){
         if (filename!=null)return filename;
         List<String> r=responseHeaders.get("Content-Disposition");

@@ -1,9 +1,13 @@
 package com.myangelcrys.cmd;
 
-import com.myangelcrys.downloader.*;
-import org.apache.commons.cli.*;
+import com.myangelcrys.downloader.DefaultDownloadManager;
+import com.myangelcrys.downloader.DefaultDownloadTaskFactory;
+import com.myangelcrys.downloader.FileUtils;
+import com.myangelcrys.downloader.TaskInfo;
+import org.apache.commons.cli.CommandLine;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.net.*;
 
 public class Main {
@@ -38,6 +42,11 @@ public class Main {
         defaultDownloadManager.setFilename(in.getName());
         FileUtils.newFile(in,defaultDownloadManager.getContentLength());
         defaultDownloadManager.splitTaskAuto(new DefaultDownloadTaskFactory(in), null);
+/*        try {
+            defaultDownloadManager.restoreTask(new FileInputStream(defaultDownloadManager.getProgressFile()),new DefaultDownloadTaskFactory(in),false);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }*/
         defaultDownloadManager.startAll();
         defaultDownloadManager.shutdownWhenFinish();
 //        System.out.println(FileUtils.newFile(new File("/home/cs/rand"),1024*1024));

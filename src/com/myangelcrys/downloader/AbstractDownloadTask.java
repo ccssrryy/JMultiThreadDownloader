@@ -3,7 +3,6 @@ package com.myangelcrys.downloader;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
@@ -25,8 +24,11 @@ public abstract class AbstractDownloadTask implements DownloadTask {
     private DownloadManager downloadManager;
     private long preBytes;
     private long preTime=System.currentTimeMillis();
-    public AbstractDownloadTask(TaskInfo taskInfo,DownloadManager dm){
+    private DataProccessor dataProccessor;
+
+    public AbstractDownloadTask(TaskInfo taskInfo, DownloadManager dm, DataProccessor dataProccessor) {
         this.taskInfo=taskInfo;
+        this.dataProccessor = dataProccessor;
         downloadManager=dm;
     }
     @Override
@@ -177,7 +179,10 @@ public abstract class AbstractDownloadTask implements DownloadTask {
         return uuid;
     }
     abstract InputStream initInputStream() throws IOException;
-    abstract void processData(ByteBuffer byteBuffer);
+
+    void processData(ByteBuffer byteBuffer) {
+        dataProccessor.processData(byteBuffer);
+    }
 
     @Override
     public boolean isFinishedCompletely() {
