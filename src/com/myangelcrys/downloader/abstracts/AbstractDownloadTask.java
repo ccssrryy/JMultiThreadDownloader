@@ -1,6 +1,7 @@
-package com.myangelcrys.downloader;
+package com.myangelcrys.downloader.abstracts;
 
 
+import com.myangelcrys.downloader.TaskInfo;
 import com.myangelcrys.downloader.interfaces.DataProccessor;
 import com.myangelcrys.downloader.interfaces.DownloadManager;
 import com.myangelcrys.downloader.interfaces.DownloadTask;

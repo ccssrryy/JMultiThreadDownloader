@@ -1,8 +1,8 @@
 package com.myangelcrys.downloader.defaults;
 
-import com.myangelcrys.downloader.AbstractDownloadTask;
 import com.myangelcrys.downloader.FileDataProccessor;
 import com.myangelcrys.downloader.TaskInfo;
+import com.myangelcrys.downloader.abstracts.AbstractDownloadTask;
 import com.myangelcrys.downloader.interfaces.DownloadManager;
 import com.myangelcrys.downloader.interfaces.TaskEventListener;
 import com.sun.istack.internal.NotNull;

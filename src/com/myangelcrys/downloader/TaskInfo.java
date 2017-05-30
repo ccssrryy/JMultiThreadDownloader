@@ -114,7 +114,7 @@ public class TaskInfo implements Cloneable,Serializable {
         this.downloadedByte = downloadedByte;
     }
 
-    void addDownloadedBytes(long size) {
+    public void addDownloadedBytes(long size) {
         this.downloadedByte+=size;
     }
 
@@ -134,7 +134,7 @@ public class TaskInfo implements Cloneable,Serializable {
         this.stopByte=stopByte;
     }
 
-    void setStartTime(Calendar startTime) {
+    public void setStartTime(Calendar startTime) {
         this.startTime=startTime;
     }
 
@@ -142,7 +142,7 @@ public class TaskInfo implements Cloneable,Serializable {
         return startTime;
     }
 
-    void setStopTime(Calendar stopTime) {
+    public void setStopTime(Calendar stopTime) {
         this.stopTime=stopTime;
     }
 

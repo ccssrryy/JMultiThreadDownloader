@@ -1,8 +1,8 @@
 package com.myangelcrys.downloader.defaults;
 
-import com.myangelcrys.downloader.AbstractDownloadManager;
 import com.myangelcrys.downloader.TaskInfo;
 import com.myangelcrys.downloader.TaskInfoList;
+import com.myangelcrys.downloader.abstracts.AbstractDownloadManager;
 import com.myangelcrys.downloader.interfaces.DownloadTask;
 import com.myangelcrys.downloader.interfaces.DownloadTaskFactory;
 import com.myangelcrys.downloader.interfaces.TaskEventListener;
