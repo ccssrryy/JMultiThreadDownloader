@@ -1,4 +1,14 @@
-package com.myangelcrys.downloader;
+package com.myangelcrys.downloader.defaults;
+
+import com.myangelcrys.downloader.AbstractDownloadManager;
+import com.myangelcrys.downloader.TaskInfo;
+import com.myangelcrys.downloader.TaskInfoList;
+import com.myangelcrys.downloader.interfaces.DownloadTask;
+import com.myangelcrys.downloader.interfaces.DownloadTaskFactory;
+import com.myangelcrys.downloader.interfaces.TaskEventListener;
+import com.myangelcrys.downloader.utils.FileUtils;
+import com.myangelcrys.downloader.utils.Utils;
+import com.myangelcrys.downloader.utils.XMLUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -16,7 +26,7 @@ import java.util.Map;
  * Created by cs on 16-10-4.
  *
  */
-public class DefaultDownloadManager extends AbstractDownloadManager{
+public class DefaultDownloadManager extends AbstractDownloadManager {
     private int threadNums;
     boolean isServerInit;
     private Map<String, List<String>> responseHeaders =new HashMap<>();
@@ -128,7 +138,7 @@ public class DefaultDownloadManager extends AbstractDownloadManager{
 
 
     @Override
-    void process() {
+    protected void process() {
     }
 
     public TaskInfo getTaskInfo(){
@@ -136,7 +146,7 @@ public class DefaultDownloadManager extends AbstractDownloadManager{
     }
 
     @Override
-    void onTaskEmpty() {
+    protected void onTaskEmpty() {
         if (getRetryList().size()==0)getProgressFile().delete();
     }
 
@@ -168,6 +178,6 @@ public class DefaultDownloadManager extends AbstractDownloadManager{
         }
     }
     public File getProgressFile(){
-        return new File(FileUtils.pathJoin(getWorkingDir(),Utils.md5sum(getTaskInfo().getUri().toString().getBytes())));
+        return new File(FileUtils.pathJoin(getWorkingDir(), Utils.md5sum(getTaskInfo().getUri().toString().getBytes())));
     }
 }

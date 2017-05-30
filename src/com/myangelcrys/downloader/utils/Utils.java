@@ -1,4 +1,4 @@
-package com.myangelcrys.downloader;
+package com.myangelcrys.downloader.utils;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

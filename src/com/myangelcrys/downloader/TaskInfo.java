@@ -96,7 +96,7 @@ public class TaskInfo implements Cloneable,Serializable {
         return uri;
     }
 
-    void setUri(URI uri) {
+    public void setUri(URI uri) {
         if (uri==null)return;
         try {
             this.uri=new URI(uri.toString());
@@ -122,7 +122,7 @@ public class TaskInfo implements Cloneable,Serializable {
         return startByte;
     }
 
-    void setStartByte(long startByte) {
+    public void setStartByte(long startByte) {
         this.startByte=startByte;
     }
 
@@ -130,7 +130,7 @@ public class TaskInfo implements Cloneable,Serializable {
         return stopByte;
     }
 
-    void setStopByte(long stopByte) {
+    public void setStopByte(long stopByte) {
         this.stopByte=stopByte;
     }
 

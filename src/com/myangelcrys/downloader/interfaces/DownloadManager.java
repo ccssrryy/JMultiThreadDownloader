@@ -1,4 +1,4 @@
-package com.myangelcrys.downloader;
+package com.myangelcrys.downloader.interfaces;
 
 import java.io.IOException;
 import java.io.InputStream;

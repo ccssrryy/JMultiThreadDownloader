@@ -1,5 +1,12 @@
 package com.myangelcrys.downloader;
 
+import com.myangelcrys.downloader.defaults.DefaultTaskEventProcessor;
+import com.myangelcrys.downloader.interfaces.DownloadManager;
+import com.myangelcrys.downloader.interfaces.DownloadTask;
+import com.myangelcrys.downloader.interfaces.DownloadTaskFactory;
+import com.myangelcrys.downloader.interfaces.TaskEventListener;
+import com.myangelcrys.downloader.utils.XMLUtils;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -16,9 +23,9 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
  * Created by cs on 16-10-4.
  *
  */
-public abstract class AbstractDownloadManager implements DownloadManager{
+public abstract class AbstractDownloadManager implements DownloadManager {
     ScheduledThreadPoolExecutor threadPool;
-    String filename = null;
+    protected String filename = null;
     private ConcurrentHashMap<DownloadTask,Future<?>[]>taskHashMap=new ConcurrentHashMap<>();
     ConcurrentHashMap<DownloadTask,Future<?>> removedTasks=new ConcurrentHashMap<>();
     ArrayList<DownloadTask>retryList=new ArrayList<>();
@@ -118,7 +125,7 @@ public abstract class AbstractDownloadManager implements DownloadManager{
         return filename;
     }
 
-    abstract void process();
+    protected abstract void process();
 
     @Override
     public void shutdownWhenFinish(){
@@ -240,7 +247,7 @@ public abstract class AbstractDownloadManager implements DownloadManager{
         return taskHashMap;
     }
 
-    abstract void onTaskEmpty();
+    protected abstract void onTaskEmpty();
 
     @Override
     public ArrayList<DownloadTask> getRetryList() {

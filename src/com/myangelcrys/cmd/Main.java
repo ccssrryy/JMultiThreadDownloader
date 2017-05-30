@@ -1,9 +1,9 @@
 package com.myangelcrys.cmd;
 
-import com.myangelcrys.downloader.DefaultDownloadManager;
-import com.myangelcrys.downloader.DefaultDownloadTaskFactory;
-import com.myangelcrys.downloader.FileUtils;
 import com.myangelcrys.downloader.TaskInfo;
+import com.myangelcrys.downloader.defaults.DefaultDownloadManager;
+import com.myangelcrys.downloader.defaults.DefaultDownloadTaskFactory;
+import com.myangelcrys.downloader.utils.FileUtils;
 import org.apache.commons.cli.CommandLine;
 
 import java.io.File;

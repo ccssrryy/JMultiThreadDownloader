@@ -1,6 +1,8 @@
-package com.myangelcrys.downloader;
+package com.myangelcrys.downloader.utils;
 
-import org.simpleframework.xml.*;
+import com.myangelcrys.downloader.TaskInfo;
+import com.myangelcrys.downloader.TaskInfoList;
+import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
 import java.io.*;
@@ -8,9 +10,7 @@ import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.charset.Charset;
 import java.util.HashMap;
-import java.util.HashSet;
 
 /**
  * Created by cs on 16-10-9.
@@ -63,48 +63,4 @@ public class XMLUtils {
             e.printStackTrace();
         }
     }
-}
-@Root(name = "tasks")
-class TaskInfoList{
-    @Attribute
-    String filename=null;
-    @Attribute
-    String url="";
-    @ElementList
-    HashSet<TaskInfo>taskInfos=new HashSet<>();
-    public TaskInfoList(String filename,String url){
-        this.url=url;
-        this.filename=filename;
-    }
-    private TaskInfoList(){
-    }
-
-    public void setFilename(String filename) {
-        this.filename = filename;
-    }
-
-    public String getFilename() {
-        return filename;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public HashSet<TaskInfo> getTaskInfos() {
-        return taskInfos;
-    }
-
-    public void setTaskInfos(HashSet<TaskInfo> taskInfos) {
-        this.taskInfos = taskInfos;
-    }
-
-    public void addTaskInfo(TaskInfo taskInfo){
-        taskInfos.add(taskInfo);
-    }
-
 }

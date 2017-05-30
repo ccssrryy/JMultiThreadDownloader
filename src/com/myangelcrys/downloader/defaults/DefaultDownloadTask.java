@@ -1,5 +1,10 @@
-package com.myangelcrys.downloader;
+package com.myangelcrys.downloader.defaults;
 
+import com.myangelcrys.downloader.AbstractDownloadTask;
+import com.myangelcrys.downloader.FileDataProccessor;
+import com.myangelcrys.downloader.TaskInfo;
+import com.myangelcrys.downloader.interfaces.DownloadManager;
+import com.myangelcrys.downloader.interfaces.TaskEventListener;
 import com.sun.istack.internal.NotNull;
 
 import java.io.File;
@@ -13,7 +18,7 @@ import java.util.Map;
 /**
  * Created by cs on 16-10-2.
  */
-public class DefaultDownloadTask extends AbstractDownloadTask{
+public class DefaultDownloadTask extends AbstractDownloadTask {
     int redirectTimes=5;
 
     public DefaultDownloadTask(TaskInfo taskInfo, DownloadManager dm, File f) {
@@ -22,7 +27,7 @@ public class DefaultDownloadTask extends AbstractDownloadTask{
 
     @Override
     @NotNull
-    InputStream initInputStream() throws IOException{
+    protected InputStream initInputStream() throws IOException {
         URI uri=getTaskInfo().getUri();
         HttpURLConnection s = null;
         if (getTaskInfo().getProxy()==null) s=(HttpURLConnection) uri.toURL().openConnection();

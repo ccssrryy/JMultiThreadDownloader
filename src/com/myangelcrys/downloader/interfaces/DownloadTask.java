@@ -1,4 +1,6 @@
-package com.myangelcrys.downloader;
+package com.myangelcrys.downloader.interfaces;
+
+import com.myangelcrys.downloader.TaskInfo;
 
 import java.io.InputStream;
 import java.util.HashSet;

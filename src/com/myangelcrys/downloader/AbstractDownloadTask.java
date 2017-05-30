@@ -1,6 +1,11 @@
 package com.myangelcrys.downloader;
 
 
+import com.myangelcrys.downloader.interfaces.DataProccessor;
+import com.myangelcrys.downloader.interfaces.DownloadManager;
+import com.myangelcrys.downloader.interfaces.DownloadTask;
+import com.myangelcrys.downloader.interfaces.TaskEventListener;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
@@ -178,7 +183,8 @@ public abstract class AbstractDownloadTask implements DownloadTask {
     public UUID getUuid(){
         return uuid;
     }
-    abstract InputStream initInputStream() throws IOException;
+
+    protected abstract InputStream initInputStream() throws IOException;
 
     void processData(ByteBuffer byteBuffer) {
         dataProccessor.processData(byteBuffer);

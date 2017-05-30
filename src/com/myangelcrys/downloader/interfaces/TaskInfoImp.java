@@ -1,4 +1,4 @@
-package com.myangelcrys.downloader;
+package com.myangelcrys.downloader.interfaces;
 
 import java.io.Serializable;
 import java.net.Proxy;

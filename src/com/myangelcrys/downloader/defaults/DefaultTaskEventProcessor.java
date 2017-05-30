@@ -1,4 +1,8 @@
-package com.myangelcrys.downloader;
+package com.myangelcrys.downloader.defaults;
+
+import com.myangelcrys.downloader.interfaces.DownloadManager;
+import com.myangelcrys.downloader.interfaces.DownloadTask;
+import com.myangelcrys.downloader.interfaces.TaskEventListener;
 
 import java.net.URLConnection;
 import java.nio.ByteBuffer;
@@ -7,7 +11,7 @@ import java.nio.ByteBuffer;
  * Created by cs on 16-10-7.
  *
  */
-public class DefaultTaskEventProcessor implements TaskEventListener{
+public class DefaultTaskEventProcessor implements TaskEventListener {
     DownloadManager downloadManager;
     public DefaultTaskEventProcessor(DownloadManager dlm){
         downloadManager=dlm;

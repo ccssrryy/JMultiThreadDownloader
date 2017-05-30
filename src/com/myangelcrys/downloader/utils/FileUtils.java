@@ -1,4 +1,4 @@
-package com.myangelcrys.downloader;
+package com.myangelcrys.downloader.utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;

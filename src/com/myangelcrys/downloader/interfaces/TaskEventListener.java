@@ -1,4 +1,4 @@
-package com.myangelcrys.downloader;
+package com.myangelcrys.downloader.interfaces;
 
 import java.net.URLConnection;
 import java.nio.ByteBuffer;
