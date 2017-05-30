@@ -22,7 +22,9 @@ public class Main {
             taskInfo = new TaskInfo(new URI(cmd.getOptionValue("url")));
             if (cmd.getOptionValue("proxy")!=null){
                 URI uri=new URI(cmd.getOptionValue("proxy"));
-                taskInfo.setProxy(new Proxy(Proxy.Type.HTTP,new InetSocketAddress(uri.getHost(),uri.getPort())));
+                String scheme = uri.getScheme();
+                taskInfo.setProxy(new Proxy(scheme == null ? Proxy.Type.DIRECT : (scheme.contains("socks") ? Proxy.Type.SOCKS : Proxy.Type.HTTP),
+                        new InetSocketAddress(uri.getHost(), uri.getPort())));
             }
             taskInfo.setMaxSpeed(Long.parseLong(cmd.getOptionValue("max-speed",Long.MAX_VALUE+"")));
             System.out.println(taskInfo.getUri());
